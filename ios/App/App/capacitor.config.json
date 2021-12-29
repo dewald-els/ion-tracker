@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ion-tracker",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
