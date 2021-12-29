@@ -1,16 +1,126 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create habit</ion-title>
+    <ion-title>Create a habit</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onDismiss()">Cancel</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Create a habit</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ng-container *ngIf="error">
+    <ion-item color="danger" lines="none">
+      <ion-icon slot="start" name="warning"></ion-icon>
+      {{error}}
+    </ion-item>
+  </ng-container>
+
   <fieldset class="ion-padding">
+    <h4>Let's add a new habit</h4>
     <ion-item fill="outline" mode="md">
-      <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" placeholder="Go for a walk"></ion-input>
+      <ion-label position="floating">Give it a title</ion-label>
+      <ion-input type="text" placeholder="e.g. Go for a walk" [(ngModel)]="title"></ion-input>
     </ion-item>
   </fieldset>
+  <fieldset class="ion-padding">
+    <h4>Remind me?</h4>
+    <ng-container *ngIf="!showCustomDate">
+      <ion-list>
+        <ion-radio-group [(ngModel)]="remindAt">
+          <ion-item>
+            <ion-label>Everyday</ion-label>
+            <ion-radio value="Everyday"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Monday - Friday</ion-label>
+            <ion-radio value="Monday - Friday"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Weekends</ion-label>
+            <ion-radio value="Weekends"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Never</ion-label>
+            <ion-radio value="Never"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ng-container>
+
+    <ng-container *ngIf="showCustomDate === true">
+      <ion-list>
+        <ion-item>
+          <ion-label>Monday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tuesday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wednesday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Thursday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Friday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Saturday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Sunday</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+
+    <ion-button fill="clear" (click)="onCustomDateClick()">
+      <span *ngIf="showCustomDate">Defaults</span>
+      <span *ngIf="!showCustomDate">Custom Date</span>
+    </ion-button>
+  </fieldset>
+
+  <fieldset class="ion-padding">
+    <h4>Time?</h4>
+    <ng-container *ngIf="!showCustomTime">
+      <ion-list>
+        <ion-radio-group [(ngModel)]="time">
+          <ion-item *ngFor="let time of defaultTimes">
+            <ion-label>{{ time.text }}</ion-label>
+            <ion-radio [value]="time.text" slot="end"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ng-container>
+    <ng-container *ngIf="showCustomTime">
+      <ion-datetime size="fixed" presentation="time"></ion-datetime>
+    </ng-container>
+
+    <ion-button fill="clear" (click)="onCustomTimeClick()">
+      <span *ngIf="showCustomTime">Defaults</span>
+      <span *ngIf="!showCustomTime">Custom Time</span>
+    </ion-button>
+  </fieldset>
+
+  <fieldset class="ion-padding">
+
+  </fieldset>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="md-ion-padding">
+    <ion-button (click)="onCreateClick()" color="primary" expand="block" fill="outline">Create Habit</ion-button>
+  </ion-toolbar>
+</ion-footer>

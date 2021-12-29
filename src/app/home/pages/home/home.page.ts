@@ -1,3 +1,6 @@
+import { HabitService } from './../../services/habit.service';
+import { CreateHabitModal } from './../../modals/create-habit/create-habit.modal';
+import { ModalController } from '@ionic/angular';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,9 +10,25 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private readonly modalCtrl: ModalController, private readonly habitService: HabitService) {}
 
-  handleCreateDismiss() {
-    console.log('Dismissed');
+  async onCreateClick() {
+    const modal = await this.modalCtrl.create({
+      component: CreateHabitModal,
+      swipeToClose: true,
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (!data) {
+      return;
+    }
+
+    this.habitService.addHabit({
+      id: Math.random().toString(16).slice(2),
+      count: 0,
+      deleted: false,
+      ...data
+    });
+
   }
 }

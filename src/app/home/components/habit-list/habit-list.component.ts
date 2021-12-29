@@ -1,25 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { MOCK_HABITS } from '../../mocks/habits.mocks';
+import { HabitService } from './../../services/habit.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-habit-list',
   templateUrl: './habit-list.component.html',
   styleUrls: ['./habit-list.component.scss'],
 })
-export class HabitListComponent implements OnInit {
+export class HabitListComponent {
 
-  private _habits = [];
-
-  constructor() { }
+  constructor(private readonly habitService: HabitService) { }
 
   get habits() {
-    return this._habits;
+    return this.habitService.habits;
   }
-
-  ngOnInit() {
-    setTimeout(() => {
-      this._habits = MOCK_HABITS;
-    }, 400);
-  }
-
 }

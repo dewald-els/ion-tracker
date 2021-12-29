@@ -1,3 +1,9 @@
 <ul class="habit-list">
+  <ion-item *ngIf="habits.length === 0">
+    <ion-label>
+      <h2>You have no habits</h2>
+      <p>Go a head an create one!</p>
+    </ion-label>
+  </ion-item>
   <app-habit-list-item *ngFor="let habit of habits" [habit]="habit"></app-habit-list-item>
 </ul>
