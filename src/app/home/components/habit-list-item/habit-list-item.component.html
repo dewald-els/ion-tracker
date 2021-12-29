@@ -1,0 +1,12 @@
+<li class="habit-list-item">
+  <aside class="ion-padding">
+    <ion-badge>{{ habit.count }}</ion-badge>
+  </aside>
+  <ion-label>
+    <h2>{{ habit.title }}</h2>
+    <p>{{ habit.remindAt }}</p>
+  </ion-label>
+  <ion-button color="success" shape="round">
+    <ion-icon slot="icon-only" name="add"></ion-icon>
+  </ion-button>
+</li>

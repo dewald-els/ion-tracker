@@ -14,10 +14,11 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "no-underscore-dangle": 0,
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": ["Page", "Component"]
+            "suffixes": ["Page", "Component", "Modal", "Form"]
           }
         ],
         "@angular-eslint/component-selector": [

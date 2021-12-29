@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Ion Tracker
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="create-habit">Create</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Ion Tracker</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <app-habit-list></app-habit-list>
+
+</ion-content>
+
+<ion-modal trigger="create-habit" [swipeToClose]="true">
+  <ng-template>
+    <app-create-habit (dismiss)="handleCreateDismiss()"></app-create-habit>
+  </ng-template>
+</ion-modal>
