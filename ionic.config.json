@@ -1,0 +1,7 @@
+{
+  "name": "ion-tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
