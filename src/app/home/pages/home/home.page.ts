@@ -1,7 +1,7 @@
 import { HabitService } from './../../services/habit.service';
 import { CreateHabitModal } from './../../modals/create-habit/create-habit.modal';
 import { ModalController } from '@ionic/angular';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +9,10 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  constructor(private readonly modalCtrl: ModalController, private readonly habitService: HabitService) {}
+  constructor(
+    private readonly modalCtrl: ModalController,
+    private readonly habitService: HabitService
+  ) {}
 
   async onCreateClick() {
     const modal = await this.modalCtrl.create({
@@ -27,8 +29,7 @@ export class HomePage {
       id: Math.random().toString(16).slice(2),
       count: 0,
       deleted: false,
-      ...data
+      ...data,
     });
-
   }
 }

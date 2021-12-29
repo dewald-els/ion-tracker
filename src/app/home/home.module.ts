@@ -1,3 +1,4 @@
+import { UnsplashImageComponent } from './components/unsplash-image/unsplash-image.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -9,19 +10,14 @@ import { HabitListComponent } from './components/habit-list/habit-list.component
 import { HabitListItemComponent } from './components/habit-list-item/habit-list-item.component';
 import { CreateHabitModal } from './modals/create-habit/create-habit.modal';
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HomePageRoutingModule
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
   declarations: [
     HomePage,
     HabitListComponent,
     HabitListItemComponent,
-    CreateHabitModal
-  ]
+    CreateHabitModal,
+    UnsplashImageComponent,
+  ],
 })
 export class HomeModule {}
