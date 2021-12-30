@@ -11,7 +11,14 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('../../home/home.module').then((m) => m.HomeModule),
+          import('../home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'overview',
+        loadChildren: () =>
+          import('../habit-overview/habit-overview-routing.module').then(
+            (m) => m.HabitOverviewRoutingModule
+          ),
       },
     ],
   },

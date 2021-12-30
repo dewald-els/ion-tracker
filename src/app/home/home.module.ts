@@ -1,3 +1,4 @@
+import { DailyProgressBarComponent } from './components/daily-progress-bar/daily-progress-bar.component';
 import { UnsplashImageComponent } from './components/unsplash-image/unsplash-image.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,7 @@ import { CreateHabitModal } from './modals/create-habit/create-habit.modal';
     HabitListItemComponent,
     CreateHabitModal,
     UnsplashImageComponent,
+    DailyProgressBarComponent,
   ],
 })
 export class HomeModule {}

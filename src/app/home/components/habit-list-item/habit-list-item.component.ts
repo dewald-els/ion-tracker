@@ -1,3 +1,4 @@
+import { HabitService } from './../../services/habit.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -6,12 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./habit-list-item.component.scss'],
 })
 export class HabitListItemComponent implements OnInit {
-
   @Input() habit;
 
-  constructor() { }
+  constructor(private readonly habitService: HabitService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-
+  onCheckChange() {
+    console.log('check', this.habit.completed);
+  }
 }

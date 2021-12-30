@@ -1,12 +1,7 @@
-<li class="habit-list-item">
-  <aside class="ion-padding">
-    <ion-badge>{{ habit.count }}</ion-badge>
-  </aside>
+<ion-item>
   <ion-label>
     <h2>{{ habit.title }}</h2>
-    <p>{{ habit.remindAt }}</p>
+    <p>Streak: {{ habit.streak }}</p>
   </ion-label>
-  <ion-button color="success" shape="round">
-    <ion-icon slot="icon-only" name="add"></ion-icon>
-  </ion-button>
-</li>
+  <ion-checkbox slot="start" (ionChange)="onCheckChange()" [(ngModel)]="habit.completed"></ion-checkbox>
+</ion-item>

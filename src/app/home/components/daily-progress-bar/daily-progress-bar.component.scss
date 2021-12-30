@@ -1,0 +1,15 @@
+.progress {
+  border-radius: 3px;
+  background: rgb(212, 212, 212);
+  overflow: hidden;
+}
+.progress-bar {
+  background-color: blueviolet;
+  height: 7px;
+}
+
+span {
+  display: block;
+  margin-bottom: .5rem;
+  color: rgb(133, 133, 133);
+}
