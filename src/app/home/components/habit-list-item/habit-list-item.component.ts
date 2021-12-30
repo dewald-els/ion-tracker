@@ -1,4 +1,4 @@
-import { HabitService } from './../../services/habit.service';
+import { HabitService } from '../../../common/services/habit.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

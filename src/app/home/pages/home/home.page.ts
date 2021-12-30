@@ -1,4 +1,4 @@
-import { HabitService } from './../../services/habit.service';
+import { HabitService } from '../../../common/services/habit.service';
 import { CreateHabitModal } from './../../modals/create-habit/create-habit.modal';
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';

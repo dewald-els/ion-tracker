@@ -32,10 +32,7 @@ export class CreateHabitModal implements OnInit {
 
     this.modalCtrl.dismiss({
       title: this.title,
-      streak: 0,
       deleted: false,
-      remindMe: this.remindMe,
-      completed: false,
     });
   }
 }
