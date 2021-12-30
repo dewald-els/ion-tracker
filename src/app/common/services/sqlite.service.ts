@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import {
   CapacitorSQLite,
   capSQLiteChanges,
+  capSQLiteResult,
   SQLiteConnection,
   SQLiteDBConnection,
 } from "@capacitor-community/sqlite";
@@ -16,7 +17,6 @@ import { createSchemaSQL, insertHabit, SQLiteCommand } from "../sql/schema";
 export class SQLiteService {
   sqlite: SQLiteConnection = null;
   databaseName: string = "ion-habits";
-  dbInstance: SQLiteDBConnection;
 
   public initialized$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -27,6 +27,11 @@ export class SQLiteService {
       this.sqlite = new SQLiteConnection(CapacitorSQLite);
       resolve(true);
     });
+  }
+
+  async openConnection(db: SQLiteDBConnection): Promise<void> {
+    await db.open();
+    return Promise.resolve();
   }
 
   async closeConnection(): Promise<void> {
@@ -51,8 +56,6 @@ export class SQLiteService {
         1
       );
       if (db !== null) {
-        this.dbInstance = db;
-        await this.dbInstance.open();
         return Promise.resolve(db);
       }
       throw new Error(
@@ -63,40 +66,51 @@ export class SQLiteService {
     }
   }
 
-  async createHabitSchema() {
-    const exResult: capSQLiteChanges = await this.dbInstance.execute(
-      createSchemaSQL
-    );
+  async isDatabase(): Promise<capSQLiteResult> {
+    if (this.sqlite != null) {
+      try {
+        return Promise.resolve(await this.sqlite.isDatabase(this.databaseName));
+      } catch (err) {
+        return Promise.reject(new Error(err));
+      }
+    } else {
+      return Promise.reject(new Error(`no connection open`));
+    }
+  }
+
+  async createHabitSchema(db: SQLiteDBConnection) {
+    const exResult: capSQLiteChanges = await db.execute(createSchemaSQL);
     if (exResult.changes.changes < 0) {
       throw new Error("SQLite Error: Could not create schema");
     }
   }
 
-  async createHabit(habit: Habit): Promise<boolean> {
+  async insert(
+    db: SQLiteDBConnection,
+    command: SQLiteCommand
+  ): Promise<number> {
     try {
-      if (!this.dbInstance) {
-        await this.createConnection();
-      }
-      const { cmd, values } = insertHabit(habit);
-      console.log(cmd, values);
-      const result: capSQLiteChanges = await this.dbInstance.run(cmd, values);
+      const result: capSQLiteChanges = await db.run(
+        command.cmd,
+        command.values
+      );
 
       if (result.changes.changes > 0) {
-        return Promise.resolve(true);
+        return Promise.resolve(result.changes.lastId);
       }
 
-      throw new Error(`SQLiteError: Could not insert record: ${habit.title}`);
+      throw new Error(`SQLiteError: Could not insert record`);
     } catch (error) {
       return Promise.reject(error.message);
     }
   }
 
-  async select(command: SQLiteCommand<void>): Promise<Habit[]> {
+  async select(
+    db: SQLiteDBConnection,
+    command: SQLiteCommand
+  ): Promise<Habit[]> {
     try {
-      if (!this.dbInstance) {
-        this.createConnection();
-      }
-      const result = await this.dbInstance.query(command.cmd);
+      const result = await db.query(command.cmd);
       return Promise.resolve(result.values as Habit[]);
     } catch (error) {
       return Promise.reject(error.message);

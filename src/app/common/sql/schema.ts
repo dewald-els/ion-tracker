@@ -24,42 +24,42 @@ CREATE INDEX IF NOT EXISTS habit_history_habit_id ON habit_history (habit_id);
 CREATE INDEX IF NOT EXISTS habit_history_last_modified ON habit_history (last_modified);
 `;
 
-export interface SQLiteCommand<T> {
+export interface SQLiteCommand {
   cmd: string;
-  values: T[];
+  values: any[];
 }
 
-export function selectAllHabits(): SQLiteCommand<void> {
+export function selectAllHabits(): SQLiteCommand {
   return {
     cmd: `SELECT * FROM habit WHERE deleted = 0;`,
     values: [],
   };
 }
 
-export const insertHabit = (habit: Habit) => {
+export function insertHabit(habit: Habit): SQLiteCommand {
   return {
-    cmd: `INSERT INTO habit (title, last_modified) VALUES (?, ?);`,
+    cmd: `INSERT INTO habit (title) VALUES (?);`,
     values: [habit.title],
   };
-};
+}
 
-export const updateHabit = (habit: Habit) => {
+export function updateHabit(habit: Habit): SQLiteCommand {
   return {
     cmd: `UPDATE habit SET title=?, last_modified=?, deleted=?, WHERE id=?;`,
     values: [habit.title, new Date().getTime(), habit.deleted, habit.id],
   };
-};
+}
 
-export const deleteHabit = (habitId: number) => {
+export function deleteHabit(habitId: number): SQLiteCommand {
   return {
     cmd: `UPDATE habit SET last_modified=?, deleted=1, WHERE id=?;`,
     values: [new Date().getTime(), habitId],
   };
-};
+}
 
-export const insertHabitHistory = (habit: Habit) => {
+export function insertHabitHistory(habit: Habit): SQLiteCommand {
   return {
     cmd: `INSERT INTO habit_history (habit_id, completed) VALUES (?, 0);`,
     values: [habit.id],
   };
-};
+}

@@ -7,20 +7,13 @@ import { Component, Output, EventEmitter, OnInit } from "@angular/core";
   templateUrl: "./habit-list.component.html",
   styleUrls: ["./habit-list.component.scss"],
 })
-export class HabitListComponent implements OnInit {
+export class HabitListComponent {
   @Output() create: EventEmitter<void> = new EventEmitter();
-
-  habits: Habit[] = [];
 
   constructor(private readonly habitService: HabitService) {}
 
-  async ngOnInit() {
-    try {
-      const _habits = await this.habitService.getHabits();
-      this.habits = _habits;
-    } catch (error) {
-      console.log(error);
-    }
+  get habits(): Habit[] {
+    return this.habitService.habits;
   }
 
   onCreateClick() {

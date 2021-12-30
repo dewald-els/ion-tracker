@@ -20,12 +20,14 @@ export class AppComponent implements OnInit {
       await this.platform.ready();
       await SplashScreen.show();
       await this.sqliteService.initializePlugin();
-      await this.sqliteService.createConnection();
-      this.sqliteService.createHabitSchema();
-      this.sqliteService.initialized$.next(true);
+      const db = await this.sqliteService.createConnection();
+      await this.sqliteService.openConnection(db);
+      await this.sqliteService.createHabitSchema(db);
     } catch (error) {
       console.error("App.init" + error.message);
     } finally {
+      await this.sqliteService.closeConnection();
+      this.sqliteService.initialized$.next(true);
       await SplashScreen.hide();
     }
   }

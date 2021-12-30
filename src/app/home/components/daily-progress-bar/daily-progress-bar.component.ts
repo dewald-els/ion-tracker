@@ -1,4 +1,3 @@
-import { Habit } from "./../../../common/models/habit.model";
 import { HabitService } from "../../../common/services/habit.service";
 import { Component, OnInit } from "@angular/core";
 
@@ -8,18 +7,17 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./daily-progress-bar.component.scss"],
 })
 export class DailyProgressBarComponent {
-  habits: Habit[] = [];
-
   constructor(private readonly habitService: HabitService) {}
 
-  async ngOnInit(): Promise<void> {
-    this.habits = await this.habitService.getHabits();
-  }
-
   get width() {
-    const completed = this.habits.filter((habit) => habit.completed === true);
-    if (this.habits.length > 0) {
-      return Math.round((completed.length / this.habits.length) * 100) + "%";
+    const completed = this.habitService.habits.filter(
+      (habit) => habit.completed === true
+    );
+    if (this.habitService.habits.length > 0) {
+      return (
+        Math.round((completed.length / this.habitService.habits.length) * 100) +
+        "%"
+      );
     }
     return 0;
   }
