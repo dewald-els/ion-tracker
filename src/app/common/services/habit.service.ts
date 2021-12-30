@@ -1,18 +1,29 @@
-import { Injectable } from '@angular/core';
-import { Habit } from '../models/habit.model';
-import { SQLiteService } from './sqlite.service';
+import { selectAllHabits } from "./../sql/schema";
+import { Injectable } from "@angular/core";
+import { Habit } from "../models/habit.model";
+import { SQLiteService } from "./sqlite.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class HabitService {
   private _habits: Habit[] = [];
 
   constructor(private sqliteService: SQLiteService) {
-
+    this.init();
   }
 
-  get habits(): Habit[] {
+  async init(): Promise<void> {
+    const habits = await this.sqliteService.select(selectAllHabits());
+    this._habits = [...habits];
+    return Promise.resolve();
+  }
+
+  async getHabits(): Promise<Habit[]> {
+    if (this._habits.length === 0) {
+      await this.init();
+    }
+
     return this._habits;
   }
 
@@ -20,10 +31,8 @@ export class HabitService {
     try {
       const result: boolean = await this.sqliteService.createHabit(habit);
       this._habits.push(habit);
-    }
-    catch(error) {
+    } catch (error) {
       console.error(error.message);
     }
   }
-
 }
