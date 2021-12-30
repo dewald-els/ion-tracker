@@ -16,8 +16,8 @@ const routes: Routes = [
       {
         path: 'overview',
         loadChildren: () =>
-          import('../habit-overview/habit-overview-routing.module').then(
-            (m) => m.HabitOverviewRoutingModule
+          import('../habit-overview/habit-overview.module').then(
+            (m) => m.HabitOverviewModule
           ),
       },
     ],
