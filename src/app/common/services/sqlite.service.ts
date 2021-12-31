@@ -105,13 +105,30 @@ export class SQLiteService {
     }
   }
 
-  async select(
-    db: SQLiteDBConnection,
-    command: SQLiteCommand
-  ): Promise<Habit[]> {
+  async select<T>(db: SQLiteDBConnection, command: SQLiteCommand): Promise<T> {
     try {
       const result = await db.query(command.cmd);
-      return Promise.resolve(result.values as Habit[]);
+      return Promise.resolve(result.values as unknown as T);
+    } catch (error) {
+      return Promise.reject(error.message);
+    }
+  }
+
+  async update(
+    db: SQLiteDBConnection,
+    command: SQLiteCommand
+  ): Promise<boolean> {
+    try {
+      const result: capSQLiteChanges = await db.run(
+        command.cmd,
+        command.values
+      );
+
+      if (result.changes.changes > 0) {
+        return Promise.resolve(true);
+      }
+
+      throw new Error(`SQLiteError: Could not insert record`);
     } catch (error) {
       return Promise.reject(error.message);
     }

@@ -1,4 +1,5 @@
-import { insertHabit, selectAllHabits } from "./../sql/schema";
+import { capSQLiteChanges } from "@capacitor-community/sqlite";
+import { insertHabit, selectAllHabits, updateHabit } from "./../sql/schema";
 import { Injectable } from "@angular/core";
 import { Habit } from "../models/habit.model";
 import { SQLiteService } from "./sqlite.service";
@@ -15,7 +16,10 @@ export class HabitService {
     try {
       const db = await this.sqliteService.createConnection();
       await this.sqliteService.openConnection(db);
-      const habits = await this.sqliteService.select(db, selectAllHabits());
+      const habits = await this.sqliteService.select<Habit[]>(
+        db,
+        selectAllHabits()
+      );
       this._habits.push(...habits);
       return Promise.resolve();
     } catch (error) {
@@ -29,7 +33,7 @@ export class HabitService {
     return this._habits;
   }
 
-  async addHabit(habit: Habit) {
+  async addHabit(habit: Habit): Promise<void> {
     try {
       const db = await this.sqliteService.createConnection();
       await this.sqliteService.openConnection(db);
@@ -45,8 +49,34 @@ export class HabitService {
         id: habitId,
         ...habit,
       });
+      return Promise.resolve();
     } catch (error) {
       console.error(error.message);
+      return Promise.reject(error);
+    } finally {
+      await this.sqliteService.closeConnection();
+    }
+  }
+
+  async deleteHabit(habit: Habit) {
+    try {
+      const db = await this.sqliteService.createConnection();
+      await this.sqliteService.openConnection(db);
+
+      const result: boolean = await this.sqliteService.update(
+        db,
+        updateHabit({
+          ...habit,
+          deleted: 1,
+        })
+      );
+      if (!result) {
+        throw new Error("deleteHabit: Could not update habit");
+      }
+      return Promise.resolve();
+    } catch (error) {
+      console.error(error.message);
+      return Promise.reject(error);
     } finally {
       await this.sqliteService.closeConnection();
     }

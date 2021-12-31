@@ -5,16 +5,16 @@ CREATE TABLE IF NOT EXISTS habit (
   id INTEGER PRIMARY KEY NOT NULL,
   title TEXT NOT NULL,
   deleted INTEGER DEFAULT 0,
-  created_at INTEGER DEFAULT (strftime('%s', 'now')),
-  last_modified INTEGER DEFAULT (strftime('%s', 'now'))
+  created_at TEXT DEFAULT (date('now')),
+  last_modified TEXT DEFAULT (date('now'))
 );
 
 CREATE TABLE IF NOT EXISTS habit_history (
   id INTEGER PRIMARY KEY NOT NULL,
   habit_id INTEGER NOT NULL,
   completed INTEGER NOT NULL DEFAULT (0),
-  created_at INTEGER DEFAULT (strftime('%s', 'now')),
-  last_modified INTEGER DEFAULT (strftime('%s', 'now'))
+  created_at TEXT DEFAULT (date('now')),
+  last_modified TEXT DEFAULT (date('now'))
 );
 
 CREATE INDEX IF NOT EXISTS habit_title ON habit (title);
@@ -32,6 +32,13 @@ export interface SQLiteCommand {
 export function selectAllHabits(): SQLiteCommand {
   return {
     cmd: `SELECT * FROM habit WHERE deleted = 0;`,
+    values: [],
+  };
+}
+
+export function selectAllHabitHistory(): SQLiteCommand {
+  return {
+    cmd: `SELECT * FROM habit_history;`,
     values: [],
   };
 }
@@ -59,7 +66,14 @@ export function deleteHabit(habitId: number): SQLiteCommand {
 
 export function insertHabitHistory(habit: Habit): SQLiteCommand {
   return {
-    cmd: `INSERT INTO habit_history (habit_id, completed) VALUES (?, 0);`,
-    values: [habit.id],
+    cmd: `INSERT INTO habit_history (habit_id, completed) VALUES (?, ?);`,
+    values: [habit.id, habit.completed],
+  };
+}
+
+export function selectHistoryByDate(date) {
+  return {
+    cmd: `SELECT * FROM habit_history WHERE created_at = ?`,
+    values: [date],
   };
 }

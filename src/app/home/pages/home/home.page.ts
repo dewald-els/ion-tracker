@@ -39,16 +39,5 @@ export class HomePage implements OnInit, OnDestroy {
       swipeToClose: true,
     });
     await modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (!data) {
-      return;
-    }
-
-    this.habitService.addHabit({
-      id: Math.random().toString(16).slice(2),
-      count: 0,
-      deleted: false,
-      ...data,
-    });
   }
 }

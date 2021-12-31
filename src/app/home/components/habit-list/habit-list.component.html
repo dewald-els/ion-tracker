@@ -1,4 +1,9 @@
 <ion-list>
+  <app-habit-list-item
+    *ngFor="let habit of habits"
+    [habit]="habit"
+  ></app-habit-list-item>
+
   <ion-item *ngIf="habits.length === 0" button (click)="onCreateClick()">
     <ion-icon
       name="information-circle-outline"
@@ -10,8 +15,4 @@
       <p>Go a head and create one!</p>
     </ion-label>
   </ion-item>
-  <app-habit-list-item
-    *ngFor="let habit of habits"
-    [habit]="habit"
-  ></app-habit-list-item>
 </ion-list>

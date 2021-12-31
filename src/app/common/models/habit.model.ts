@@ -1,9 +1,8 @@
-export interface Habit
-{
-  id: number;
+export interface Habit {
+  id?: number;
   title: string;
-  created_at: number;
-  last_modified: number;
+  created_at?: number;
+  last_modified?: number;
   deleted: number;
   completed: boolean;
 }
