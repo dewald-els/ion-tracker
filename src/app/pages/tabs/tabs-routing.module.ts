@@ -23,14 +23,9 @@ const routes: Routes = [
       {
         path: "",
         pathMatch: "full",
-        redirectTo: "/habits",
+        redirectTo: "/tabs/habits",
       },
     ],
-  },
-  {
-    path: "",
-    pathMatch: "full",
-    redirectTo: "/tabs/habits",
   },
 ];
 

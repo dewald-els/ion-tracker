@@ -1,0 +1,9 @@
+.progress {
+  background-color: gray;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 7px;
+  background-color: var(--ion-color-success);
+}

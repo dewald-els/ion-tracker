@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Create a Habit</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="onCancelClick()">Cancel</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +12,7 @@
     <h2>Let's track a new habit</h2>
     <ion-item fill="outline" mode="md">
       <ion-label position="floating">
-        What habit do you wish to track?
+        What habit do you wish to track? *
       </ion-label>
       <ion-input type="text" placeholder="E.g. Take a nap" [(ngModel)]="habitTitle"></ion-input>
     </ion-item>

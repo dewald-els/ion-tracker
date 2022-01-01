@@ -29,6 +29,13 @@
             "allowTemplateLiterals": true
           }
         ],
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": "variable",
+            "format": ["camelCase"]
+          }
+        ],
         "no-underscore-dangle": 0,
         "@angular-eslint/component-class-suffix": [
           "error",

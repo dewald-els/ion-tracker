@@ -1,3 +1,4 @@
-<p>
-  habit-list-item works!
-</p>
+<ion-item>
+  <ion-label>{{ habit.title }}</ion-label>
+  <ion-checkbox slot="start" (ionChange)="onHabitChecked()" [checked]="habit.completed"></ion-checkbox>
+</ion-item>

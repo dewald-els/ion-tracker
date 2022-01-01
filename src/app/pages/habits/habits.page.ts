@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-habits',
-  templateUrl: './habits.page.html',
-  styleUrls: ['./habits.page.scss'],
+  selector: "app-habits",
+  templateUrl: "./habits.page.html",
+  styleUrls: ["./habits.page.scss"],
 })
 export class HabitsPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

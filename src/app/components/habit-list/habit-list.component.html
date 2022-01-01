@@ -1,3 +1,17 @@
-<p>
-  habit-list works!
-</p>
+<ion-list>
+  <ion-list-header>Remaining</ion-list-header>
+  <app-habit-list-item *ngFor="let habit of incompletedHabits" [habit]="habit"></app-habit-list-item>
+  <ion-item *ngIf="incompletedHabits.length === 0">
+    <ion-icon color="success" name="trophy-outline" slot="start"></ion-icon>
+    <ion-label>Great! All done for today.</ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-accordion-group>
+  <ion-accordion value="completed">
+    <ion-item slot="header">Completed ({{ completedHabits.length }})</ion-item>
+    <ion-list slot="content">
+      <app-habit-list-item *ngFor="let habit of completedHabits" [habit]="habit"></app-habit-list-item>
+    </ion-list>
+  </ion-accordion>
+</ion-accordion-group>
