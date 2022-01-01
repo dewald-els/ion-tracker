@@ -11,9 +11,9 @@
       <ion-label position="floating">
         What habit do you wish to track?
       </ion-label>
-      <ion-input type="text" placeholder="E.g. Take a nap"></ion-input>
+      <ion-input type="text" placeholder="E.g. Take a nap" [(ngModel)]="habitTitle"></ion-input>
     </ion-item>
     <br>
-    <ion-button type="submit" fill="outline" expand="block">Track habit</ion-button>
+    <ion-button fill="outline" expand="block" (click)="onTrackTitleClick()">Track habit</ion-button>
   </main>
 </ion-content>
