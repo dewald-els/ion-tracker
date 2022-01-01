@@ -1,18 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "e2e/tsconfig.json"
-        ],
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -30,49 +23,41 @@
         ],
         "@typescript-eslint/quotes": [
           "error",
-          "single",
+          "double",
           {
             "avoidEscape": true,
             "allowTemplateLiterals": true
-          },
-          "no-underscore-dangle": 0,
-          "@angular-eslint/component-class-suffix": [
-            "error",
-            {
-              "suffixes": [
-                "Page",
-                "Component",
-                "Modal",
-                "Form"
-              ]
-            }
-          ],
-          "@angular-eslint/component-selector": [
-            "error",
-            {
-              "type": "element",
-              "prefix": "app",
-              "style": "kebab-case"
-            }
-          ],
-          "@angular-eslint/directive-selector": [
-            "error",
-            {
-              "type": "attribute",
-              "prefix": "app",
-              "style": "camelCase"
-            }
-          ]
-        }
-      },
-      {
-        "files": [
-          "*.html"
+          }
         ],
-        "extends": [
-          "plugin:@angular-eslint/template/recommended"
+        "no-underscore-dangle": 0,
+        "@angular-eslint/component-class-suffix": [
+          "error",
+          {
+            "suffixes": ["Page", "Component", "Modal", "Form"]
+          }
         ],
-        "rules": {}
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}

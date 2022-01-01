@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  unsplashServiceAPI: 'http://localhost:3000',
+  unsplashServiceAPI: "http://localhost:3000",
 };
 
 /*
