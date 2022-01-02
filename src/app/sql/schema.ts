@@ -1,4 +1,3 @@
-import { Habit } from "./../models/habit.model";
 export const sqlCreateSchema = `
   CREATE TABLE IF NOT EXISTS habit (
     id INTEGER PRIMARY KEY NOT NULL,
