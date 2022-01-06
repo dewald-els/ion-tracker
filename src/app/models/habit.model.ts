@@ -13,3 +13,9 @@ export interface HabitHistory {
   created_at: string;
   updated_at: string;
 }
+
+export interface HabitHistoryGroupDate {
+  habits_completed: number;
+  created_at: string;
+  habit_id: number;
+}

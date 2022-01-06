@@ -1,5 +1,8 @@
+import { HabitHistoryGroupDate } from "./../models/habit.model";
 import {
   sqlInsertHabitHistory,
+  sqlSelectAllHabitHistory,
+  sqlSelectAllHabitHistoryGroupByDate,
   sqlSelectHabitHistoryToday,
 } from "./../sql/schema";
 import { environment } from "./../../environments/environment";
@@ -32,6 +35,42 @@ export class HabitHistoryService {
       const result: capSQLiteValues = await db.query(sql);
       await this.sqlite.closeConnection(dbName);
       return Promise.resolve(result.values as HabitHistory[]);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async allHabitHistory(): Promise<HabitHistory[]> {
+    try {
+      let db: SQLiteDBConnection = await this.sqlite.createConnection(
+        dbName,
+        false,
+        encryption,
+        version
+      );
+      await db.open();
+      const { sql } = sqlSelectAllHabitHistory();
+      const result: capSQLiteValues = await db.query(sql);
+      await this.sqlite.closeConnection(dbName);
+      return Promise.resolve(result.values);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async allHabitHistoryGroupByDate(): Promise<HabitHistoryGroupDate[]> {
+    try {
+      let db: SQLiteDBConnection = await this.sqlite.createConnection(
+        dbName,
+        false,
+        encryption,
+        version
+      );
+      await db.open();
+      const { sql } = sqlSelectAllHabitHistoryGroupByDate();
+      const result: capSQLiteValues = await db.query(sql);
+      await this.sqlite.closeConnection(dbName);
+      return Promise.resolve(result.values);
     } catch (error) {
       return Promise.reject(error);
     }

@@ -48,3 +48,13 @@ export const sqlSelectHabitHistoryToday = (): SQLiteCommand => ({
   sql: "SELECT * FROM habit_history WHERE date(created_at) = date('now');",
   values: [],
 });
+
+export const sqlSelectAllHabitHistory = (): SQLiteCommand => ({
+  sql: "SELECT * FROM habit_history;",
+  values: [],
+});
+
+export const sqlSelectAllHabitHistoryGroupByDate = (): SQLiteCommand => ({
+  sql: "SELECT COUNT(habit_id) AS habits_completed, * FROM habit_history GROUP BY created_at;",
+  values: [],
+});
