@@ -31,6 +31,7 @@ No PRs accepted at this time.
 
 ## Acknowledgements
 - [Ionic Framework](https://ionicframework.com/)
+- [Capacitor SQLite Community](https://github.com/capacitor-community/sqlite)
 
 ## Author
 Dewald Els
