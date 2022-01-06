@@ -58,6 +58,11 @@ export class HabitsOverviewPage implements AfterViewInit {
         (history) => history.created_at
       );
 
+      const activeChart = Chart.getChart(this.chart);
+      if (activeChart) {
+        activeChart.destroy();
+      }
+
       this.chart = new Chart(context, {
         type: "bar",
         data: {
